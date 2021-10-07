@@ -74,7 +74,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
             'uses' => 'Panel\WorkAssignmentsController@bentrada',
             'as' => 'workassignments.bentrada'
         ]);
-        
+
+        Route::get('workassignments/autoassing/{id}', [
+            'uses' => 'Panel\WorkAssignmentsController@autoassing',
+            'as' => 'workassignments.autoassing'
+        ]);
+
+    
+
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 

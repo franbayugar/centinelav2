@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // Validaciones
 use App\Http\Requests\WorkAssignmentRequest;
+use App\Http\Requests\WorkAssignmentNewRequest;
 
 use App\Models\WorkAssignment;
 use App\Models\WorkingState;
@@ -126,4 +127,20 @@ class WorkAssignmentsController extends Controller
         // Retorno a la vista
         return view('panel.workassignments.bentrada', compact('workAssignments'));
     }
+
+    //funcion para autoasignarse a una tarea
+    public function autoassing($id){
+        $task = WorkAssignment::findOrFail($id);
+
+        //controlo que no haya usuarios asignados a la tarea
+        if($task->user_id == null){
+            $authid = \Auth::user()->id;
+            $task->user_id = $authid;
+            $task->save();
+        }
+
+        return redirect()->back();
+    }
+
+  
 }
