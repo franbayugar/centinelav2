@@ -134,7 +134,9 @@
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/workassignments/create') ? 'active' : '' }}"><a href="{!! route('workassignments.create') !!}"><i class="fa fa-angle-double-right"></i> Nueva tareas</a></li>
                     <li class="{{ Request::is('admin/workassignments') ? 'active' : '' }}"><a href="{{ route('workassignments.index') }}"><i class="fa fa-angle-double-right"></i> Listado de tareas</a></li>
+                    <li class="{{ Request::is('admin/workassignments') ? 'active' : '' }}"><a href="{{ route('workassignments.terminada') }}"><i class="fa fa-angle-double-right"></i>Tareas terminadas </a></li>
                     <li class="{{ Request::is('admin/workassignments') ? 'active' : '' }}"><a href="{{ route('workassignments.bentrada') }}"><i class="fa fa-angle-double-right"></i>Bandeja de entrada </a></li>
+                   
                 </ul>
             </li>
             {{-- Parametros Generales --}}

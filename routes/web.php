@@ -22,32 +22,38 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('register', '\App\Http\Controllers\Auth\RegisterController@redirectLogin')->name('register');
+Route::get(
+    'register',
+    '\App\Http\Controllers\Auth\RegisterController@redirectLogin'
+)->name('register');
 
-Route::get('password/reset', '\App\Http\Controllers\Auth\RegisterController@redirectLogin')->name('register');
+Route::get(
+    'password/reset',
+    '\App\Http\Controllers\Auth\RegisterController@redirectLogin'
+)->name('register');
 
 /* -- Modulo Logins -- */
 /* -- Grupo de rutas para panel de administración con proteccion del middleware -- */
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/dashboard', 'Panel\DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', 'Panel\DashboardController@index')->name(
+        'dashboard'
+    );
 
     // Rutas para modulo de profiles
     Route::resource('profiles', 'Panel\ProfilesController');
 
     /* Ruta para cambiar contraseña */
     Route::put('profiles/changepass/{pass}', [
-        'uses'	=> 'Panel\ProfilesController@changePassword',
-        'as'	=> 'profiles.changepassword'
+        'uses' => 'Panel\ProfilesController@changePassword',
+        'as' => 'profiles.changepassword',
     ]);
 
     // Rutas para modulo de orders
     Route::resource('orders', 'Panel\OrdersController');
 
-    Route::group(['middleware' => 'admin'], function(){
-
+    Route::group(['middleware' => 'admin'], function () {
         // Rutas para modulo de mails
         Route::resource('mails', 'Panel\MailsController');
 
@@ -56,8 +62,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
         /* Ruta que setea la imagen en null (Así está por defecto) */
         Route::get('machines/withoutimage/{id}', [
-            'uses'	=> 'Panel\MachinesController@withoutImage',
-            'as'	=> 'machines.withoutimage'
+            'uses' => 'Panel\MachinesController@withoutImage',
+            'as' => 'machines.withoutimage',
         ]);
 
         // Rutas para modulo de events
@@ -72,46 +78,47 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
         Route::get('/workassignments/bentrada', [
             'uses' => 'Panel\WorkAssignmentsController@bentrada',
-            'as' => 'workassignments.bentrada'
+            'as' => 'workassignments.bentrada',
         ]);
-        
+
+        Route::get('/workassignments/terminada', [
+            'uses' => 'Panel\WorkAssignmentsController@terminada',
+            'as' => 'workassignments.terminada',
+        ]);
+
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 
-    
         // Rutas para modulo de products
         Route::resource('products', 'Panel\ProductsController');
 
         /* Ruta que setea la imagen en null (Así está por defecto) */
         Route::get('products/withoutimage/{id}', [
-            'uses'	=> 'Panel\ProductsController@withoutImage',
-            'as'	=> 'products.withoutimage'
+            'uses' => 'Panel\ProductsController@withoutImage',
+            'as' => 'products.withoutimage',
         ]);
-
 
         // Ruta para modulo inputproducts
         Route::resource('inputproducts', 'Panel\InputProductsController');
 
         // Ruta para modulo outputproducts
         Route::resource('outputproducts', 'Panel\OutputProductsController');
-        
-        Route::group(['prefix' => 'userorders'], function() {
+
+        Route::group(['prefix' => 'userorders'], function () {
             // Ruta para mostrar los pedidos cancelados
             Route::get('reservedorders', [
-                'uses'	=> 'Panel\OutputProductsController@reservedorders',
-                'as'	=> 'reservedorders'
+                'uses' => 'Panel\OutputProductsController@reservedorders',
+                'as' => 'reservedorders',
             ]);
 
             // Ruta para mostrar los pedidos cancelados
             Route::get('canceledorders', [
-                'uses'	=> 'Panel\OutputProductsController@canceledOrders',
-                'as'	=> 'canceledorders'
+                'uses' => 'Panel\OutputProductsController@canceledOrders',
+                'as' => 'canceledorders',
             ]);
-
         });
 
-        Route::group(['prefix' => 'parameters'], function() {
-
+        Route::group(['prefix' => 'parameters'], function () {
             // Rutas para modulo de actions
             Route::resource('actions', 'Panel\ActionsController');
 
@@ -132,23 +139,21 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
             /* Ruta para cambiar contraseña */
             Route::put('users/changepass/{pass}', [
-                'uses'	=> 'Panel\UsersController@changePassword',
-                'as'	=> 'users.changepassword'
+                'uses' => 'Panel\UsersController@changePassword',
+                'as' => 'users.changepassword',
             ]);
         });
-        
 
         // Ruta para confirmar los pedidos del usuario
         Route::get('confirmorder/{outputproduct}', [
-            'uses'	=> 'Panel\OutputProductsController@confirmOrder',
-            'as'	=> 'outputproducts.confirmorder'
+            'uses' => 'Panel\OutputProductsController@confirmOrder',
+            'as' => 'outputproducts.confirmorder',
         ]);
 
         // Ruta para confirmar los pedidos del usuario
         Route::get('cancelorder/{outputproduct}', [
-            'uses'	=> 'Panel\OutputProductsController@cancelOrder',
-            'as'	=> 'outputproducts.cancelorder'
+            'uses' => 'Panel\OutputProductsController@cancelOrder',
+            'as' => 'outputproducts.cancelorder',
         ]);
     });
-    
 });
