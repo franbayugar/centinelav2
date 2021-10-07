@@ -13,7 +13,7 @@
 {{-- Content Header (Page header) --}}
 <section class="content-header">
     <h1>
-        <i class="fa fa-tasks"></i> Tareas
+        <i class="fa fa-tasks"></i> Tareas sin asignar
         <small>Listado</small>
     </h1>
     <ol class="breadcrumb">
@@ -46,23 +46,14 @@
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
-                        <tr>
-                            
+                        <tr>    
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
-
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
-
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-
-                            @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
-                                <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">
-                                    person_add_alt</span></b></button></td>
-                            @else
-                                <td class="text-danger">Sin asignado</td>
-                                <td class="text-danger"><button  class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
-                                    person_add_alt</span></b></button></td>
-                            @endif
+                            <td class="text-danger">Sin asignado</td>
+                            <td class="text-danger"><button  class="btn btn-success btn-sm btn-block"
+                                 data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
+                                     person_add_alt</span></b></button></td>
                         </tr>
                     @endforeach
                 </tbody>

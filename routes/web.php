@@ -86,6 +86,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             'as' => 'workassignments.terminada',
         ]);
 
+        Route::get('/workassignments/sinasignar', [
+            'uses' => 'Panel\WorkAssignmentsController@sinasignar',
+            'as' => 'workassignments.sinasignar',
+        ]);
+
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 

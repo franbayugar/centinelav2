@@ -157,4 +157,16 @@ class WorkAssignmentsController extends Controller
             compact('workAssignments')
         );
     }
+
+    public function sinasignar()
+    {
+        $workAssignments = WorkAssignment::where('user_id', null)
+            ->orderBy('working_state_id', 'ASC')
+            ->get();
+        // Retorno a la vista
+        return view(
+            'panel.workassignments.sinasignar',
+            compact('workAssignments')
+        );
+    }
 }
