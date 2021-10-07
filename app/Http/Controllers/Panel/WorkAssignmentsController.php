@@ -119,7 +119,9 @@ class WorkAssignmentsController extends Controller
     }
 
     public function bentrada()
-    {      $id =\Auth::user()->id;
+    {      
+        $id =\Auth::user()->id;
+        
         $workAssignments = WorkAssignment::where('user_id',$id)->orderBy('working_state_id', 'ASC')->get();
         // Retorno a la vista
         return view('panel.workassignments.bentrada', compact('workAssignments'));

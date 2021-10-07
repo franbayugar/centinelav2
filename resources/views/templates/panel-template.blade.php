@@ -16,6 +16,9 @@
         <link href="{{ asset('AdminLTE/css/AdminLTE.min.css') }}" rel="stylesheet" type="text/css" />
         {{-- Centinela Theme style --}}
         <link href="{{ asset('AdminLTE/css/centinela.min.css') }}" rel="stylesheet" type="text/css" />
+
+        {{-- Icono google --}}
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         
         {{-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries --}}
         {{-- WARNING: Respond.js doesn't work if you view the page via file:// --}}

@@ -41,6 +41,7 @@
                         <th>Iniciada</th>
                         <th>Estado</th>
                         <th>Asignada</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,21 +56,19 @@
 
                             @if ($workAssignment->user != null)
                                 <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
+                                <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">
+                                    person_add_alt</span></b></button></td>
                             @else
                                 <td class="text-danger">Sin asignado</td>
+                                <td class="text-danger"><button  class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
+                                    person_add_alt</span></b></button></td>
                             @endif
-
+                            )
+                            
+                        
                         </tr>
                     @endforeach
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Iniciada</th>
-                        <th>Estado</th>
-                        <th>Asignada</th>
-                    </tr>
-                </tfoot>
             </table>
 
         </div>{{-- /.box-body --}}
