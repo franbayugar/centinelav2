@@ -182,7 +182,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('user_id', 'Asignada') !!}
-                                <select class="form-control select-simple" id="user_id" name="user_id">
+                                <select class="form-control select-simple" multiple id="user_id" name="user_id">
                                     <option value="">- Seleccionar realizador -</option>
                                     @foreach ( $users_computos as $user )
                                         @if ( $user->id == $workassignment->user_id)

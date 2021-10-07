@@ -30,11 +30,9 @@
     {{-- Info box --}}
     <div class="box box-info">
         <div class="box-body">
-
         {{-- Boton nuevo viático --}}
         <a href="{!! route('workassignments.create') !!}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Nueva tarea"><i class="fa fa-tasks"></i> Nuevo tarea</a><br><br>
-            
-            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+        <table id="example" class="table  table-bordered nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nombre</th>
@@ -46,8 +44,14 @@
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
-                        <tr>
-                            
+                        @if (
+                            $workAssignment->workingState->id==2
+                        )
+                            <tr class="bg-red">    
+                        @else
+                            <tr>
+                        @endif
+      
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
 
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
@@ -62,7 +66,7 @@
                                 <td class="text-danger">Sin asignado</td>
                                 <td class="text-danger"><button  class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
                                     person_add_alt</span></b></button></td>
-                            @endif
+                            @endif               
                         </tr>
                     @endforeach
                 </tbody>
@@ -74,6 +78,7 @@
         </div>{{-- /.box-footer--}}
     </div>{{-- /.box --}}
 </div>{{-- /.col --}}
+
 
 @endsection
 
