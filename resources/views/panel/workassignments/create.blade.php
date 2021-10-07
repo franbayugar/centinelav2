@@ -12,6 +12,8 @@
 
     {{-- Estilos para datetimepicker --}}
     @include('panel.partials.heads.datetimepicker-styles')
+    
+    
 
 @endsection
 
@@ -72,7 +74,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('user_id', 'Asignada') !!}
-                    <select class="form-control select-simple" id="user_id" name="user_id">
+                    <select class= "form-control select-simple" multiple id="user_id" name="user_id">
                         <option value="">- Seleccionar realizador -</option>
                         @foreach ( $users_computos as $user )
                             <option value="{{ $user->id }}">{{ $user->lastname }}, {{ $user->name }}</option>
@@ -81,7 +83,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
             {{-- Descripción --}}
             <div class="col-md-12">
@@ -104,6 +105,7 @@
 @endsection
 
 @section('script')
+{{--<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>--}}
 
     {{-- Scripts necesarios para form-validator --}}
     @include('panel.partials.scripts.form-validator')

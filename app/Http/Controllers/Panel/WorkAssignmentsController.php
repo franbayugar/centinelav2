@@ -22,8 +22,8 @@ class WorkAssignmentsController extends Controller
     public function index()
     {
         // Busco todas las workAssignments
-        $workAssignments = WorkAssignment::orderBy('working_state_id', 'ASC')->get();
-
+        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,2])->orderBy('working_state_id', 'ASC')->get();
+        
         // Retorno a la vista
         return view('panel.workassignments.index', compact('workAssignments'));
     }
@@ -122,7 +122,7 @@ class WorkAssignmentsController extends Controller
     {      
         $id =\Auth::user()->id;
         
-        $workAssignments = WorkAssignment::where('user_id',$id)->orderBy('working_state_id', 'ASC')->get();
+        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,2])->where('user_id',$id)->orderBy('working_state_id', 'ASC')->get();
         // Retorno a la vista
         return view('panel.workassignments.bentrada', compact('workAssignments'));
     }
