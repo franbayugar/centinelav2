@@ -184,7 +184,6 @@
                                 {!! Form::label('user_id', 'Asignada') !!}
                                 <select class="form-control select-simple" multiple id="user_id" name="user_id" >
                                     {{--Solucion provisoria el "sin asignar" deberia setearse automaticamente cuando se borra del input--}}
-                                    <option value="{{NULL}}">- Sin Asignar -</option>
                                     @foreach ( $users_computos as $user )
                                         @if ( $user->id == $workassignment->user_id)
                                             <option value="{{ $user->id }}" selected>{{ $user->lastname }}, {{ $user->name }}</option>

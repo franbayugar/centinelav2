@@ -105,7 +105,10 @@ class WorkAssignmentsController extends Controller
     public function update(WorkAssignmentRequest $request, $id)
     {
         $workassignment = WorkAssignment::find($id);
+ 
         $workassignment->fill($request->all());
+        $workassignment->user_id = $request->user_id;
+
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if ($workassignment->finish_date < $workassignment->start_date) {
             flash(
@@ -122,9 +125,8 @@ class WorkAssignmentsController extends Controller
             )->error();
             return back();
             //Verifica que no se den por terminadas tareas que no fueron asignadas.
-        } elseif (
-            $workassignment->working_state_id == 3 &&
-            $workassignment->user_id == null
+        } else if (
+            $workassignment->working_state_id == 3
         ) {
             flash(
                 'No puede dar por terminada una tarea que no esta asignada'
