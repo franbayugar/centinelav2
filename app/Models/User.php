@@ -79,6 +79,7 @@ class User extends Authenticatable
      */
     public function workAssignments()
     {
-        return $this->belongsTo('App\Models\WorkAssignment');
+        return $this->belongsToMany('App\Models\WorkAssignment', 'users_work_assignments')->withPivot('user_id', 'work_assignment_id');;
+
     }
 }

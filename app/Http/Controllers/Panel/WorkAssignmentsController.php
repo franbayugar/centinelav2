@@ -60,6 +60,7 @@ class WorkAssignmentsController extends Controller
     public function store(WorkAssignmentRequest $request)
     {
         $workAssignment = new WorkAssignment($request->all());
+        
         $workAssignment->save();
         flash('La tarea se ha registrado con exito!')->success();
         return redirect()->route('workassignments.index');
@@ -107,6 +108,7 @@ class WorkAssignmentsController extends Controller
         $workassignment = WorkAssignment::find($id);
  
         $workassignment->fill($request->all());
+       
         $workassignment->user_id = $request->user_id;
 
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
@@ -160,15 +162,26 @@ class WorkAssignmentsController extends Controller
 
     public function bentrada()
     {
-        $id = \Auth::user()->id;
 
+        $user = User::find(\Auth::user()->id);
+       
+       
+        $id = \Auth::user()->id;
+      
         $workAssignments = WorkAssignment::where('user_id', $id)
             ->orderBy('working_state_id', 'ASC')
             ->get();
         // Retorno a la vista
+
+
+        var_dump($user->workAssignments);
+   
+     
+        die();
+
         return view(
             'panel.workassignments.bentrada',
-            compact('workAssignments')
+            compact('tasks')
         );
     }
 
