@@ -36,7 +36,9 @@ class InputProductsController extends Controller
     public function create()
     {
         // Me traigo todos los productos
-        $products = Product::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        $products = Product::orderBy('name', 'ASC')
+            ->pluck('name', 'id')
+            ->all();
 
         // Retorno vista
         return view('panel.inputproducts.create', compact('products'));
@@ -62,10 +64,22 @@ class InputProductsController extends Controller
         $product->save();
 
         // Muestro msj correspondiente
-        flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" se registró de forma ¡exitosa!. El producto "' .$product->name. '" actualizó su stock a '.$product->stock)->success();
+        flash(
+            'El ingreso de la fecha "' .
+                date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                '" se registró de forma ¡exitosa!. El producto "' .
+                $product->name .
+                '" actualizó su stock a ' .
+                $product->stock
+        )->success();
 
         // Notificación para Slack //
-        $msj = '*Registró* un nuevo ingreso del producto *'.$product->name.'* su stock actual es: *'.$product->stock.'*';
+        $msj =
+            '*Registró* un nuevo ingreso del producto *' .
+            $product->name .
+            '* su stock actual es: *' .
+            $product->stock .
+            '*';
         $this->slackNotification($msj);
 
         // Redirecciono a la vista correspondiente
@@ -83,9 +97,14 @@ class InputProductsController extends Controller
         // Busco el inputproduct
         $inputproduct = InputProduct::find($id);
         // Me traigo todos los productos
-        $products = Product::orderBy('name', 'ASC')->pluck('name', 'id')->all();
+        $products = Product::orderBy('name', 'ASC')
+            ->pluck('name', 'id')
+            ->all();
         // Retorno la vista
-        return view('panel.inputproducts.show', compact('inputproduct', 'products'));
+        return view(
+            'panel.inputproducts.show',
+            compact('inputproduct', 'products')
+        );
     }
 
     /**
@@ -111,11 +130,9 @@ class InputProductsController extends Controller
         // Busco la entrada
         $inputproduct = InputProduct::find($id);
         // Si son distintos productos
-        if ( $request->product_id != $inputproduct->product_id )
-        {
+        if ($request->product_id != $inputproduct->product_id) {
             $product_old = Product::find($inputproduct->product_id);
-            if ($product_old->stock >= $request->quantity)
-            {
+            if ($product_old->stock >= $request->quantity) {
                 // Busco el producto que me solicitan
                 $product = Product::find($request->product_id);
                 // Actualizo el stock
@@ -131,29 +148,53 @@ class InputProductsController extends Controller
                 $inputproduct->save();
 
                 // Notificación para Slack //
-                $msj = '*Modificó* el ingreso de la fecha *' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '*. El producto *' .$product->name. '* actualizó su stock a *'.$product->stock.'* y el producto *'.$product_old->name.'* reestableció su stock a *'.$product_old->stock.'*';
+                $msj =
+                    '*Modificó* el ingreso de la fecha *' .
+                    date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                    '*. El producto *' .
+                    $product->name .
+                    '* actualizó su stock a *' .
+                    $product->stock .
+                    '* y el producto *' .
+                    $product_old->name .
+                    '* reestableció su stock a *' .
+                    $product_old->stock .
+                    '*';
                 $this->slackNotification($msj);
 
                 // Muestro msj correspondiente
-                flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" se modificó de forma ¡exitosa!. El producto "' .$product->name. '" actualizó su stock a "'.$product->stock.'" y el producto "'.$product_old->name.'" reestableció su stock a "'.$product_old->stock.'"')->success();
-
-            }
-            else
-            {
+                flash(
+                    'El ingreso de la fecha "' .
+                        date(
+                            'd-m-Y h:i',
+                            strtotime($inputproduct->input_date)
+                        ) .
+                        '" se modificó de forma ¡exitosa!. El producto "' .
+                        $product->name .
+                        '" actualizó su stock a "' .
+                        $product->stock .
+                        '" y el producto "' .
+                        $product_old->name .
+                        '" reestableció su stock a "' .
+                        $product_old->stock .
+                        '"'
+                )->success();
+            } else {
                 // Muestro msj correspondiente
-                flash('El producto no posee el stock necesario para realizar la operación')->error();
+                flash(
+                    'El producto no posee el stock necesario para realizar la operación'
+                )->error();
             }
-
-        }
-        else
-        {
+        } else {
             // Si es el mismo producto que quiero agregarle más stock
-            if ( $request->quantity > $inputproduct->quantity)
-            {
+            if ($request->quantity > $inputproduct->quantity) {
                 // Busco el producto que me solicitan
                 $product = Product::find($request->product_id);
                 // Resto la cantidad anterior para luego sumarle la verdadera actualización del stock
-                $product->stock = ($product->stock - $inputproduct->quantity) + $request->quantity;
+                $product->stock =
+                    $product->stock -
+                    $inputproduct->quantity +
+                    $request->quantity;
                 $product->save();
 
                 // Actualizo los valores del ingreso
@@ -161,20 +202,38 @@ class InputProductsController extends Controller
                 $inputproduct->save();
 
                 // Muestro msj correspondiente
-                flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" se modificó de forma ¡exitosa!. El producto "' .$product->name. '" actualizó su stock a "'.$product->stock.'"')->success();
+                flash(
+                    'El ingreso de la fecha "' .
+                        date(
+                            'd-m-Y h:i',
+                            strtotime($inputproduct->input_date)
+                        ) .
+                        '" se modificó de forma ¡exitosa!. El producto "' .
+                        $product->name .
+                        '" actualizó su stock a "' .
+                        $product->stock .
+                        '"'
+                )->success();
 
                 // Notificación para Slack //
-                $msj = '*Modificó* el ingreso de la fecha *' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '*. El producto *' .$product->name. '* actualizó su stock a *'.$product->stock.'*';
+                $msj =
+                    '*Modificó* el ingreso de la fecha *' .
+                    date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                    '*. El producto *' .
+                    $product->name .
+                    '* actualizó su stock a *' .
+                    $product->stock .
+                    '*';
                 $this->slackNotification($msj);
-
             }
             // Si la cantidad que me solicitan es menor a lo que ya habia registrado
-            elseif ($request->quantity < $inputproduct->quantity)
-            {
+            elseif ($request->quantity < $inputproduct->quantity) {
                 // Busco el producto que me solicitan
                 $product = Product::find($request->product_id);
                 // Devuelvo la cantidad que habia registrado para despues poder restar correctamente
-                $product->stock = $product->stock - ($inputproduct->quantity - $request->quantity);
+                $product->stock =
+                    $product->stock -
+                    ($inputproduct->quantity - $request->quantity);
                 $product->save();
 
                 // Actualizo los valores del ingreso
@@ -182,24 +241,50 @@ class InputProductsController extends Controller
                 $inputproduct->save();
 
                 // Notificación para Slack //
-                $msj = '*Modificó* el ingreso de la fecha *' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '*. El producto *' .$product->name. '* actualizó su stock a *'.$product->stock.'*';
+                $msj =
+                    '*Modificó* el ingreso de la fecha *' .
+                    date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                    '*. El producto *' .
+                    $product->name .
+                    '* actualizó su stock a *' .
+                    $product->stock .
+                    '*';
                 $this->slackNotification($msj);
 
                 // Muestro msj correspondiente
-                flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" se modificó de forma ¡exitosa!. El producto "' .$product->name. '" actualizó su stock a "'.$product->stock.'"')->success();
-            }
-            else
-            {
+                flash(
+                    'El ingreso de la fecha "' .
+                        date(
+                            'd-m-Y h:i',
+                            strtotime($inputproduct->input_date)
+                        ) .
+                        '" se modificó de forma ¡exitosa!. El producto "' .
+                        $product->name .
+                        '" actualizó su stock a "' .
+                        $product->stock .
+                        '"'
+                )->success();
+            } else {
                 // Actualizo los valores del ingreso
                 $inputproduct->fill($request->all());
                 $inputproduct->save();
 
                 // Notificación para Slack //
-                $msj = '*Modificó* el ingreso de la fecha *' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '*';
+                $msj =
+                    '*Modificó* el ingreso de la fecha *' .
+                    date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                    '*';
                 $this->slackNotification($msj);
 
                 // Muestro msj correspondiente
-                flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" se modificó de forma ¡exitosa!')->success();
+                flash(
+                    'El ingreso de la fecha "' .
+                        date(
+                            'd-m-Y h:i',
+                            strtotime($inputproduct->input_date)
+                        ) .
+                        '" se modificó de forma ¡exitosa!'
+                )->success();
             }
         }
 
@@ -220,7 +305,7 @@ class InputProductsController extends Controller
         // Busco el producto con el id que registre en el ingreso
         $product = Product::find($inputproduct->product_id);
         // preguntó para que el producto no quede con stock negativo
-        if ( $product->stock - $inputproduct->quantity >= 0 ) {
+        if ($product->stock - $inputproduct->quantity >= 0) {
             // Revierto los cambios del stock
             $product->stock = $product->stock - $inputproduct->quantity;
             // Guardo los cambios de stock del producto
@@ -230,14 +315,29 @@ class InputProductsController extends Controller
             $inputproduct->delete();
 
             // Notificación para Slack //
-            $msj = '*Eliminó* el ingreso del producto *'.$product->name.'* su stock actual es: *'.$product->stock.'*';
+            $msj =
+                '*Eliminó* el ingreso del producto *' .
+                $product->name .
+                '* su stock actual es: *' .
+                $product->stock .
+                '*';
             $this->slackNotification($msj);
 
             // Muestro msj correspondiente
-            flash('El ingreso de la fecha "' .date('d-m-Y h:i', strtotime($inputproduct->input_date)). '" fue eliminado de forma ¡exitosa!. El producto "' .$product->name. '" actualizó su stock a '.$product->stock)->success();
-        }
-        else {
-            flash('El stock del producto "' .$product->name. '" no puede ser menor a 0. Verifique que sea el ingreso correcto a eliminar.')->error();
+            flash(
+                'El ingreso de la fecha "' .
+                    date('d-m-Y h:i', strtotime($inputproduct->input_date)) .
+                    '" fue eliminado de forma ¡exitosa!. El producto "' .
+                    $product->name .
+                    '" actualizó su stock a ' .
+                    $product->stock
+            )->success();
+        } else {
+            flash(
+                'El stock del producto "' .
+                    $product->name .
+                    '" no puede ser menor a 0. Verifique que sea el ingreso correcto a eliminar.'
+            )->error();
         }
 
         // Redirecciono a la vista correspondiente
@@ -245,11 +345,11 @@ class InputProductsController extends Controller
     }
 
     /*
-    *   Metodo que realiza el envió de la notificación de Slack
-    */
-    public function slackNotification($msj) {
-        
-        $settings = [
+     *   Metodo que realiza el envió de la notificación de Slack
+     */
+    public function slackNotification($msj)
+    {
+        /*$settings = [
             'username'   => \Auth::user()->name .' '. \Auth::user()->lastname, //Nombre de usuario que envía el mensaje
             'link_names' => true    //Activar que el nombre de usuario sea un link
         ];
@@ -262,8 +362,6 @@ class InputProductsController extends Controller
             'author_name' => \Auth::user()->name .' '. \Auth::user()->lastname,
             'color' => 'good',
             'mrkdwn_in' => ['text']
-        ])->send('Nueva notificación de Centinela');
-
+        ])->send('Nueva notificación de Centinela');*/
     }
-
 }
