@@ -45,7 +45,7 @@
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
                         @if (
-                            $workAssignment->workingState->id==2
+                            $workAssignment->workingState->id==4
                         )
                             <tr class="bg-red">    
                         @else
@@ -64,8 +64,8 @@
                                     person_add_alt</span></b></button></td>
                             @else
                                 <td class="text-danger">Sin asignado</td>
-                                <td class="text-danger"><button  class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
-                                    person_add_alt</span></b></button></td>
+                                <td class="text-danger"><a  href="{!! route('workassignments.autoassing', $workAssignment->id) !!}" class="btn btn-success btn-sm btn-block"><b><span class="material-icons">
+                                    person_add_alt</span></b></a></td>                                  
                             @endif               
                         </tr>
                     @endforeach

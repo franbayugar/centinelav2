@@ -46,7 +46,13 @@
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
+                    @if (
+                        $workAssignment->workingState->id==4
+                    )
+                        <tr class="bg-red">    
+                    @else
                         <tr>
+                    @endif
                             
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
 

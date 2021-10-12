@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 // Validaciones
 use App\Http\Requests\WorkAssignmentRequest;
+use App\Http\Requests\WorkAssignmentNewRequest;
 
 use App\Models\WorkAssignment;
 use App\Models\WorkingState;
@@ -24,7 +25,7 @@ class WorkAssignmentsController extends Controller
         // Busco todas las workAssignments
         $workAssignments = WorkAssignment::whereBetween('working_state_id', [
             0,
-            2,
+            4,
         ])
             ->orderBy('working_state_id', 'ASC')
             ->get();
@@ -144,9 +145,14 @@ class WorkAssignmentsController extends Controller
      */
     public function destroy($id)
     {
+        $idauth = \Auth::user()->id;
         $workassignment = WorkAssignment::findOrFail($id);
+        //if($workassignment->user_id == $idauth){
         $workassignment->delete();
         flash('La tarea ha sido eliminada de forma exitosa!')->success();
+        //}else{
+        //    flash('Solo las personas asignadas a la misma pueden elminar esta tarea')->error();
+        //};
         return redirect()->route('workassignments.index');
     }
 
@@ -186,5 +192,20 @@ class WorkAssignmentsController extends Controller
             'panel.workassignments.sinasignar',
             compact('workAssignments')
         );
+    }
+
+    //funcion para autoasignarse a una tarea
+    public function autoassing($id)
+    {
+        $task = WorkAssignment::findOrFail($id);
+
+        //controlo que no haya usuarios asignados a la tarea
+        if ($task->user_id == null) {
+            $authid = \Auth::user()->id;
+            $task->user_id = $authid;
+            $task->save();
+        }
+
+        return redirect()->back();
     }
 }
