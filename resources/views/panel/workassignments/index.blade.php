@@ -45,7 +45,7 @@
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
                         @if (
-                            $workAssignment->workingState->id==2
+                            $workAssignment->workingState->id==4
                         )
                             <tr class="bg-red">    
                         @else

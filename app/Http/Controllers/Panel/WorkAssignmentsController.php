@@ -23,7 +23,7 @@ class WorkAssignmentsController extends Controller
     public function index()
     {
         // Busco todas las workAssignments
-        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,2])->orderBy('working_state_id', 'ASC')->get();
+        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,4])->orderBy('working_state_id', 'ASC')->get();
         
         // Retorno a la vista
         return view('panel.workassignments.index', compact('workAssignments'));
@@ -110,10 +110,14 @@ class WorkAssignmentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   $idauth =\Auth::user()->id;
         $workassignment = WorkAssignment::findOrFail($id);
-        $workassignment->delete();
-        flash('La tarea ha sido eliminada de forma exitosa!')->success();
+        //if($workassignment->user_id == $idauth){
+            $workassignment->delete();
+            flash('La tarea ha sido eliminada de forma exitosa!')->success();
+        //}else{
+        //    flash('Solo las personas asignadas a la misma pueden elminar esta tarea')->error();
+        //};
         return redirect()->route('workassignments.index');
 
 
@@ -123,7 +127,7 @@ class WorkAssignmentsController extends Controller
     {      
         $id =\Auth::user()->id;
         
-        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,2])->where('user_id',$id)->orderBy('working_state_id', 'ASC')->get();
+        $workAssignments = WorkAssignment::whereBetween('working_state_id',[0,4])->where('user_id',$id)->orderBy('working_state_id', 'ASC')->get();
         // Retorno a la vista
         return view('panel.workassignments.bentrada', compact('workAssignments'));
     }
