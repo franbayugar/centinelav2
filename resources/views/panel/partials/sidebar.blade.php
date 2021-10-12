@@ -140,6 +140,18 @@
                    
                 </ul>
             </li>
+            //Llamados
+            <li class="treeview {{ Request::segment(2) === 'workassignments' ? 'active' : null }}">
+                <a href="#">
+                    <i class="fa fa-tasks"></i> <span>Llamados</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+              {{-- /.     <li class="{{ Request::is('admin/calls/create') ? 'active' : '' }}"><a href="{!! route('calls.create') !!}"><i class="fa fa-angle-double-right"></i> Nueva pedido</a></li> --}}
+                    <li class="{{ Request::is('admin/calls') ? 'active' : '' }}"><a href="{{ route('calls.index') }}"><i class="fa fa-angle-double-right"></i> Listado de pedidos</a></li>
+                </ul>
+            </li>
+
             {{-- Parametros Generales --}}
             <li class="treeview {{ Request::segment(2) === 'parameters' ? 'active' : null }}">
                 <a href="#">

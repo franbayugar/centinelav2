@@ -105,7 +105,14 @@ class WorkAssignmentsController extends Controller
     {
         $workassignment = WorkAssignment::find($id);
         $workassignment->fill($request->all());
-        if (
+        //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
+        if ($workassignment->finish_date < $workassignment->start_date) {
+            flash(
+                'La fecha de finalizacion no debe ser menor a la de creacion.'
+            )->error();
+            return back();
+            //Verifica que la tarea no la den por terminada sin agregarle fecha de finalizacion.
+        } elseif (
             $workassignment->working_state_id == 3 &&
             $workassignment->finish_date == null
         ) {
@@ -113,11 +120,20 @@ class WorkAssignmentsController extends Controller
                 'Has olvidado poner la fecha de finalización de la tarea.'
             )->error();
             return back();
-        } else {
-            $workassignment->save();
-            flash('La tarea ha sido modificada de forma exitosa!')->success();
-            return redirect()->route('workassignments.index');
+            //Verifica que no se den por terminadas tareas que no fueron asignadas.
+        } elseif (
+            $workassignment->working_state_id == 3 &&
+            $workassignment->user_id == null
+        ) {
+            flash(
+                'No puede dar por terminada una tarea que no esta asignada'
+            )->error();
+            return back();
         }
+
+        $workassignment->save();
+        flash('La tarea ha sido modificada de forma exitosa!')->success();
+        return redirect()->route('workassignments.index');
     }
 
     /**

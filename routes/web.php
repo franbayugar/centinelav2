@@ -94,6 +94,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 
+        //Rutas para llamados
+        Route::get('/calls/index', [
+            'uses' => 'Panel\callsController@index',
+            'as' => 'calls.index',
+        ]);
+
         // Rutas para modulo de products
         Route::resource('products', 'Panel\ProductsController');
 
