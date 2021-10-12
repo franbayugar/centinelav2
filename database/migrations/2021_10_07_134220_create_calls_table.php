@@ -19,7 +19,10 @@ class CreateCallsTable extends Migration
             $table->text('call_description');
             $table->string('emitter_area', 100)->nullable();
             $table->datetime('date')->nullable();
-            $table->boolean('notified')->nullable();
+            $table
+                ->boolean('notified')
+                ->nullable()
+                ->default(0);
             $table->timestamps();
         });
     }
