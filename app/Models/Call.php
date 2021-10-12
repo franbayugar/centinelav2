@@ -18,6 +18,16 @@ class Call extends Model
     ];
 
     /**
+     * Define relationship with area model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Area');
+    }
+
+    /**
      * Define relationship with InputProduct model
      *
      *

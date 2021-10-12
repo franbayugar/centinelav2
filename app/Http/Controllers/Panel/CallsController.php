@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
-use App\Models\Call;
-use Illuminate\Http\Request;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\CallStoreRequest;
+
+use App\Models\Call;
 use App\Models\Area;
 
 class CallsController extends Controller
