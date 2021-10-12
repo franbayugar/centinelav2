@@ -13,7 +13,7 @@ class Call extends Model
         'emitter_name',
         'date',
         'call_description',
-        'emitter_area',
+        'area_id',
         'notified',
     ];
 

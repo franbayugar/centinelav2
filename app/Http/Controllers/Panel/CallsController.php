@@ -7,6 +7,7 @@ use App\Models\Call;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\CallStoreRequest;
+use App\Models\Area;
 
 class CallsController extends Controller
 {
@@ -31,7 +32,12 @@ class CallsController extends Controller
      */
     public function create()
     {
-        return view('panel.calls.create');
+        // Me traigo todas las áreas
+        $areas = Area::orderBy('name', 'ASC')
+            ->pluck('name', 'id')
+            ->all();
+        // Retorno vista
+        return view('panel.calls.create', compact('areas'));
     }
 
     /**
@@ -43,10 +49,11 @@ class CallsController extends Controller
     public function store(CallStoreRequest $request)
     {
         $calls = new Call($request->all());
+        $calls->date = now();
 
         $calls->save();
         // Muestro mensaje correspondiente
-        flash('El pedido se ha creado con exito!')->success();
+        flash('El llamado se ha agregado a la lista')->success();
         // Redirecciono a la vista que muestra todos los articulos
         return redirect()->route('calls.index');
 
@@ -61,7 +68,10 @@ class CallsController extends Controller
      */
     public function show($id)
     {
-        return 'show';
+        $areas = Area::orderBy('name', 'ASC')
+            ->pluck('name', 'id')
+            ->all();
+        // return view('panel'show';
     }
 
     /**

@@ -45,28 +45,20 @@
                 </div>
             </div>
 
-             {{-- Area proveniente --}}
-             <div class="col-md-12">
+             {{-- Area proveniente NO 
                 <div class="form-group">
                     {!! Form::label('emitter_area', 'Area proveniente') !!}
                     {!! Form::text('emitter_area', null, ['class' => 'form-control', 'placeholder' => 'Area proveniente']) !!}
                 </div>
             </div>
+            --}}
 
-            {{-- Fecha --}}
-            <div class="col-md-6">
-                <div class="form-group">
-                    {!! Form::label('date', 'Fecha pedido *') !!}
-                    {!! Form::text('date', null, ['class' => 'form-control', 'id' => 'datetimepicker1', 'readonly']) !!}
-                </div>
-            </div>
 
-           
-            {{-- Estado --}}
-            {{--  <div class="col-md-6">
+             {{-- Area proveniente desplegable--}}
+             <div class="col-md-6">
                 <div class="form-group">
-                    {!! Form::label('notified', 'Notificado *') !!}
-                    {!! Form::select('notified', null, ['class' => 'form-control select-simple', 'placeholder' => '- Seleccionar estado -', 'required']) !!}
+                    {!! Form::label('area_id', 'Área') !!}
+                    {!! Form::select('area_id', $areas, null, ['class' => 'form-control select-simple', 'placeholder' => '- Seleccionar área -']) !!}  
                 </div>
             </div>
 
@@ -75,10 +67,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('notified', 'Notificado') !!}
-                   
                     {!! Form::checkbox('notified', '1',  null, ['class' => 'form-control']) !!}
-                    {!! var_dump('notified');!!}
-                    
                 </div>
             </div>
 

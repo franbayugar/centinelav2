@@ -27,7 +27,7 @@ class CallStoreRequest extends FormRequest
             'emitter_name' => 'nullable',
             'date' => 'nullable|date_format:Y-m-d H:i:s',
             'call_description' => 'required',
-            'emitter_area' => 'nullable',
+            'area_id' => 'nullable|numeric',
             'notified' => 'nullable|boolean',
         ];
     }

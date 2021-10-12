@@ -17,7 +17,7 @@ class CreateCallsTable extends Migration
             $table->increments('id');
             $table->string('emitter_name', 100)->nullable();
             $table->text('call_description');
-            $table->string('emitter_area', 100)->nullable();
+            $table->unsignedInteger('area_id');
             $table->datetime('date')->nullable();
             $table
                 ->boolean('notified')
