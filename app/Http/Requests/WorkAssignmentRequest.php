@@ -28,7 +28,8 @@ class WorkAssignmentRequest extends FormRequest
             'start_date'        =>  'required|date_format:Y-m-d H:i:s',
             'finish_date'       =>  'nullable|date_format:Y-m-d H:i:s',
             'working_state_id'  =>  'required|numeric',
-            'user_id'           =>  'nullable|numeric',
+            'user_id'           =>  'nullable|array',
+            'user_id.*'           =>  'nullable|numeric',
             'description'       =>  'required'
         ];
     }

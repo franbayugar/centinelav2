@@ -62,6 +62,8 @@ class WorkAssignmentsController extends Controller
     {
         $workAssignment = new WorkAssignment($request->all());
         
+        var_dump($request->input('user_id'));
+        die();
         $workAssignment->save();
         flash('La tarea se ha registrado con exito!')->success();
         return redirect()->route('workassignments.index');

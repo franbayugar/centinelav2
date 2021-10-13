@@ -51,9 +51,8 @@
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
                             <td class="text-danger">Sin asignado</td>
-                            <td class="text-danger"><button  class="btn btn-success btn-sm btn-block"
-                                 data-toggle="modal" data-target="#myModal"><b><span class="material-icons">
-                                     person_add_alt</span></b></button></td>
+                            <td class="text-danger"><a  href="{!! route('workassignments.autoassing', $workAssignment->id) !!}" class="btn btn-success btn-sm btn-block"><b><span class="material-icons">
+                                person_add_alt</span></b></a></td> 
                         </tr>
                     @endforeach
                 </tbody>
