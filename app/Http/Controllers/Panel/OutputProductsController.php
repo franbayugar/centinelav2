@@ -337,6 +337,8 @@ class OutputProductsController extends Controller
                                         ->get();
         //CREAR FILTRO POR FECHAS
 
+        //CONSULTA DE LA CANTIDAD DE CADA PRODUCTO SEGUN EL AREA
+
          // Retorno a la vista
          return view('panel.outputproducts.totaloutputs', compact('outputproducts'));
     }
