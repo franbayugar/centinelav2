@@ -68,6 +68,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/outputproducts/create') ? 'active' : '' }}"><a href="{{ route('outputproducts.create') }}"><i class="fa fa-angle-double-right"></i> Nuevo egreso</a></li>
                     <li class="{{ Request::is('admin/outputproducts') ? 'active' : '' }}"><a href="{{ route('outputproducts.index') }}"><i class="fa fa-angle-double-right"></i> Listado de Egresos</a></li>
+                    <li class="{{ Request::is('admin/outputproducts') ? 'active' : '' }}"><a href="{{ route('outputproducts.totaloutputs') }}"><i class="fa fa-angle-double-right"></i> Total Egresos</a></li>
                 </ul>
             </li>
             {{-- Pedidos --}}

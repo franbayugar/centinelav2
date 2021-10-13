@@ -118,6 +118,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::resource('inputproducts', 'Panel\InputProductsController');
 
         // Ruta para modulo outputproducts
+        Route::get('outputproducts/totaloutputs', [
+            'uses' => 'Panel\OutputProductsController@totaloutputs',
+            'as' => 'outputproducts.totaloutputs',
+        ]);
+
         Route::resource('outputproducts', 'Panel\OutputProductsController');
 
         Route::group(['prefix' => 'userorders'], function () {
