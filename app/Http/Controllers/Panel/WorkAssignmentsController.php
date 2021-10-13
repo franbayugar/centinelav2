@@ -107,6 +107,8 @@ class WorkAssignmentsController extends Controller
         $workassignment = WorkAssignment::find($id);
         $workassignment->fill($request->all());
         
+        $workassignment->user_id = $request->user_id;
+
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if ($workassignment->finish_date < $workassignment->start_date) {
             flash(
