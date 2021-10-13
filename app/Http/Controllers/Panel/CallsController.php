@@ -89,6 +89,17 @@ class CallsController extends Controller
         return view('panel.calls.edit', compact('calls', 'areas'));
     }
 
+    public function updateNotified($id)
+    {
+        $call = Call::findOrFail($id);
+
+        if ($call->notified == 0 || $call->notified == null) {
+            $call->notified = 1;
+            $call->save();
+        }
+        return redirect()->back();
+    }
+
     /**
      * Update the specified resource in storage.
      *

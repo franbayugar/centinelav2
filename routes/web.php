@@ -99,6 +99,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 
+        //cambiar a resuelto en llamados
+        Route::get('calls/updateNotified/{id}', [
+            'uses' => 'Panel\CallsController@updateNotified',
+            'as' => 'calls.updateNotified',
+        ]);
+
         //Rutas para llamados
         Route::resource('calls', 'Panel\CallsController');
 

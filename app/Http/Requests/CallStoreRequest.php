@@ -24,10 +24,10 @@ class CallStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'emitter_name' => 'nullable',
+            'emitter_name' => 'required',
             'date' => 'nullable|date_format:Y-m-d H:i:s',
             'call_description' => 'required',
-            'area_id' => 'nullable|numeric',
+            'area_id' => 'required|numeric',
             'notified' => 'nullable|boolean',
         ];
     }
@@ -35,6 +35,8 @@ class CallStoreRequest extends FormRequest
     public function messages()
     {
         return [
+            'emitter_name.required' => 'El campo Nombre es obligatorio.',
+            'area_id.required' => 'Debe seleccionar un àrea',
             'call_description.required' =>
                 'El campo descripción es obligatorio.',
         ];

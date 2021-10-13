@@ -182,7 +182,7 @@
                             </div>
                         </div>
             
-                    <div class="row">
+                    
                         {{-- Descripción --}}
                         <div class="col-md-11">
                             <div class="form-group">
@@ -190,7 +190,7 @@
                                 {!! Form::textarea('call_description', $calls->call_description, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
-                    </div>
+                    
                     
                 </div>
 

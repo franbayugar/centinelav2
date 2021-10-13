@@ -19,8 +19,8 @@
 {{-- Content Header (Page header) --}}
 <section class="content-header">
     <h1>
-        <i class="fa fa-tasks"></i> Tareas
-        <small>Nueva tarea</small>
+        <i class="fa fa-tasks"></i> Llamados
+        <small>Nueva Llamado</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
