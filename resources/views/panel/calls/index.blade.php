@@ -60,7 +60,7 @@
                                     <td class="text-center">  <button type="button" class="btn btn-primary"> Ok </button>  </td>
                                 
                            @else
-                                <td class="text-center"> <a href="{!! route('calls.updateNotified', $call->id) !!}" class="btn btn-dark" > x </a></td>
+                                <td class="text-center"> <a href="{!! route('calls.updateNotified', $call->id) !!}" class="btn btn-danger" > x </a></td>
                            @endif 
                            
                            

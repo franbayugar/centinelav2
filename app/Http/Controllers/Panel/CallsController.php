@@ -110,7 +110,9 @@ class CallsController extends Controller
     public function update(Request $request, $id)
     {
         $calls = Call::find($id);
+
         $calls->fill($request->all());
+        $calls->notified = $request->notified;
         $calls->save();
 
         flash('La llamada ha sido modificada de forma exitosa!')->success();
