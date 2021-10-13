@@ -100,10 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 
         //Rutas para llamados
-        Route::get('/calls/index', [
-            'uses' => 'Panel\callsController@index',
-            'as' => 'calls.index',
-        ]);
+        Route::resource('calls', 'Panel\CallsController');
 
         // Rutas para modulo de products
         Route::resource('products', 'Panel\ProductsController');

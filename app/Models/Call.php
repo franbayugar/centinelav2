@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Calls extends Model
+class Call extends Model
 {
     protected $table = 'calls';
 
@@ -13,9 +13,19 @@ class Calls extends Model
         'emitter_name',
         'date',
         'call_description',
-        'emitter_area',
+        'area_id',
         'notified',
     ];
+
+    /**
+     * Define relationship with area model
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function area()
+    {
+        return $this->belongsTo('App\Models\Area');
+    }
 
     /**
      * Define relationship with InputProduct model
