@@ -83,7 +83,10 @@ class CallsController extends Controller
      */
     public function edit($id)
     {
-        return 'edit';
+        $calls = Call::findOrFail($id);
+        $areas = Area::all();
+
+        return view('panel.calls.edit', compact('calls', 'areas'));
     }
 
     /**
@@ -95,6 +98,12 @@ class CallsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $calls = Call::find($id);
+        $calls->fill($request->all());
+        $calls->save();
+
+        flash('La llamada ha sido modificada de forma exitosa!')->success();
+        return redirect()->route('calls.index');
     }
 
     /**
@@ -105,5 +114,13 @@ class CallsController extends Controller
      */
     public function destroy($id)
     {
+        $calls = Call::findOrFail($id);
+        //if($workassignment->user_id == $idauth){
+        $calls->delete();
+        flash('La llamada ha sido eliminada de forma exitosa!')->success();
+        //}else{
+        //    flash('Solo las personas asignadas a la misma pueden elminar esta tarea')->error();
+        //};
+        return redirect()->route('calls.index');
     }
 }

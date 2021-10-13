@@ -41,7 +41,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     {!! Form::label('emitter_name', 'Nombre *') !!}
-                    {!! Form::text('emitter_name', null, ['class' => 'form-control', 'placeholder' => 'Nombre']) !!}
+                    {!! Form::text('emitter_name', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'data-validation' => 'length', 'data-validation-length' => '3-30', 'required']) !!}
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
              <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('area_id', 'Área') !!}
-                    {!! Form::select('area_id', $areas, null, ['class' => 'form-control select-simple', 'placeholder' => '- Seleccionar área -']) !!}  
+                    {!! Form::select('area_id', $areas, null, ['class' => 'form-control select-simple', 'placeholder' => '- Seleccionar área -','required']) !!}  
                 </div>
             </div>
 

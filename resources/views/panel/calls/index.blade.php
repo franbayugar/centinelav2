@@ -52,7 +52,7 @@
 
                             <td>{!! $call->call_description !!}</td>
 
-                            <td>{!! $call->area_id!!}</td>
+                            <td>{!! $call->area->name !!}</td>
                            {{-- <td>{!! $user->area->name !!}</td> --}}
 
                             @if ($call->notified == 1)
