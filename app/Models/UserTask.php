@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserTask extends Model
 {
     protected $table = 'users_work_assignments';
-
+ 
 
     /**
      * Define relationship with area model

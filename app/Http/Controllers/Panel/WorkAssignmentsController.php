@@ -167,21 +167,22 @@ class WorkAssignmentsController extends Controller
        
        
         $id = \Auth::user()->id;
-      
-        $workAssignments = WorkAssignment::where('user_id', $id)
+      /*
+        $test = WorkAssignment::where('user_id', $id)
             ->orderBy('working_state_id', 'ASC')
             ->get();
         // Retorno a la vista
+       */
 
+        $workAssignments = $user->workAssignments;
 
-        var_dump($user->workAssignments);
    
-     
-        die();
+
+   
 
         return view(
             'panel.workassignments.bentrada',
-            compact('tasks')
+            compact('workAssignments')
         );
     }
 

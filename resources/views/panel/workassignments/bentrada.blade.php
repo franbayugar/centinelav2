@@ -60,10 +60,14 @@
 
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
 
-                            @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
+                            @if ($workAssignment->users != null)
+                                <td>  @foreach ( $workAssignment->users as $user )
+                                    - {!!$user->name!!}, {!!$user->lastname!!}  
+                                    @endforeach</td>
                             @else
-                                <td class="text-danger">Sin asignado</td>
+                                <td class="text-danger">
+                                    Sin asignado
+                                </td>
                             @endif
                             <td class="text-danger">Sin asignado</td>
 
