@@ -115,12 +115,10 @@ class CallsController extends Controller
     public function destroy($id)
     {
         $calls = Call::findOrFail($id);
-        //if($workassignment->user_id == $idauth){
+
         $calls->delete();
         flash('La llamada ha sido eliminada de forma exitosa!')->success();
-        //}else{
-        //    flash('Solo las personas asignadas a la misma pueden elminar esta tarea')->error();
-        //};
+
         return redirect()->route('calls.index');
     }
 }

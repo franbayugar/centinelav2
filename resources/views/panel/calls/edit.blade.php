@@ -153,7 +153,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('area', 'Seleccionar area') !!}
-                                        <select class="form-control select-simple" id="area_id" name="area" >
+                                        <select class="form-control select-simple" id="area_id" name="area_id" >
                                             @foreach ( $areas as $area )
                                                 @if ( $area->id == $calls->area_id)
                                                     <option value="{{ $area->id }}" selected>{{ $area->name }}</option>
@@ -186,8 +186,8 @@
                         {{-- Descripción --}}
                         <div class="col-md-11">
                             <div class="form-group">
-                                {!! Form::label('description', 'Descripción *') !!}
-                                {!! Form::textarea('description', $calls->call_description, ['class' => 'form-control', 'required']) !!}
+                                {!! Form::label('call_description', 'Descripción *') !!}
+                                {!! Form::textarea('call_description', $calls->call_description, ['class' => 'form-control', 'required']) !!}
                             </div>
                         </div>
                     </div>
