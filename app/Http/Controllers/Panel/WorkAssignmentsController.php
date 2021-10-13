@@ -12,6 +12,7 @@ use App\Http\Requests\WorkAssignmentNewRequest;
 use App\Models\WorkAssignment;
 use App\Models\WorkingState;
 use App\Models\User;
+use App\Models\UserTask;
 
 class WorkAssignmentsController extends Controller
 {
@@ -173,12 +174,7 @@ class WorkAssignmentsController extends Controller
             ->get();
         // Retorno a la vista
        */
-
         $workAssignments = $user->workAssignments;
-
-   
-
-   
 
         return view(
             'panel.workassignments.bentrada',
@@ -200,9 +196,34 @@ class WorkAssignmentsController extends Controller
 
     public function sinasignar()
     {
+        /*parche para sin asignar - rapido MEJORAR - */
+        $workAssignments = WorkAssignment::all();
+        $tasks = array();
+        foreach($workAssignments as $workAssignment){
+            if(count($workAssignment->users)==0){
+                array_push($tasks, $workAssignment);
+            }
+        }
+
+
+        /*$tasks = WorkAssignment::with('users')->whereHas('users', function($q) {
+                            $q->where('user_id', null);
+                        })
+                            ->orderBy('working_state_id', 'ASC')
+                            ->get();
+        */
+
+
+         /*
+        $test = $workAssignments->users->where('user_id', null);
+        var_dump($test);
+        die();
+
         $workAssignments = WorkAssignment::where('user_id', null)
             ->orderBy('working_state_id', 'ASC')
-            ->get();
+            ->get();*/
+
+        $workAssignments = $tasks;
         // Retorno a la vista
         return view(
             'panel.workassignments.sinasignar',
