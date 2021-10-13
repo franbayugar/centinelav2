@@ -74,7 +74,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     {!! Form::label('user_id', 'Asignada') !!}
-                    <select class= "form-control select-simple" multiple id="user_id" name="user_id">
+                    <select class= "form-control select-simple" multiple="multiple" id="user_id" name="user_id[]">
                         <option value="">- Seleccionar realizador -</option>
                         @foreach ( $users_computos as $user )
                             <option value="{{ $user->id }}">{{ $user->lastname }}, {{ $user->name }}</option>
