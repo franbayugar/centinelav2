@@ -62,10 +62,14 @@ class WorkAssignmentsController extends Controller
     {
         $workAssignment = new WorkAssignment($request->all());
         $workAssignment->save();
-
+        if(!empty($request['user_id'])){
         foreach($request['user_id'] as $id_user){
             ($workAssignment->users()->attach($id_user));   
         }
+    }else{
+        
+        $workAssignment->users()->attach(null);
+    }
     
         flash('La tarea se ha registrado con exito!')->success();
         return redirect()->route('workassignments.index');
@@ -117,10 +121,8 @@ class WorkAssignmentsController extends Controller
         $workassignment = WorkAssignment::find($id);
  
         $workassignment->fill($request->all());
-        if(empty($request['user_id'])){
-        $workassignment->user_id = null;
-        }
-        
+       
+     
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if (
             $workassignment->working_state_id == 3 &&
@@ -140,15 +142,13 @@ class WorkAssignmentsController extends Controller
             )->error();
             return back();
             //Verifica que no se den por terminadas tareas que no fueron asignadas.
-        } else if (
-            $workassignment->working_state_id == 3
-        ) {
+        } 
+        else if (empty($request->user_id) &&  $workassignment->working_state_id == 3) {
             flash(
                 'No puede dar por terminada una tarea que no esta asignada'
             )->error();
             return back();
         }
-
         $workassignment->save();
         $res = $request['user_id'];
 
@@ -204,6 +204,8 @@ class WorkAssignmentsController extends Controller
             ->orderBy('working_state_id', 'ASC')
             ->get();
         // Retorno a la vista
+
+       
         return view(
             'panel.workassignments.terminada',
             compact('workAssignments')
@@ -253,11 +255,10 @@ class WorkAssignmentsController extends Controller
         $task = WorkAssignment::findOrFail($id);
 
         //controlo que no haya usuarios asignados a la tarea
-        if ($task->user_id == null) {
-            $authid = \Auth::user()->id;
-            $task->user_id = $authid;
-            $task->save();
-        }
+        $authid = \Auth::user()->id;
+
+
+        $task->users()->sync($authid);   
 
         return redirect()->back();
     }

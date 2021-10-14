@@ -60,7 +60,7 @@
                             @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
                             <td>  
                                 @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}
-                                {!!$user->name!!} {!!$user->lastname!!},
+                                {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}
                                 @endforeach
                             </td>
                                 <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">

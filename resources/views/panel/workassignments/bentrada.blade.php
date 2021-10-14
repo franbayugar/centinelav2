@@ -62,14 +62,13 @@
                             @endif     
                             @if ($workAssignment->users != null)
                                 <td>  @foreach ( $workAssignment->users as $user )
-                                    - {!!$user->name!!}, {!!$user->lastname!!}  
+                                    {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}  
                                     @endforeach</td>
                             @else
                                 <td class="text-danger">
                                     Sin asignado
                                 </td>
                             @endif
-
                         </tr>
                     @endforeach
                 </tbody>
