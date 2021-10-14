@@ -53,14 +53,18 @@
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
 
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-
+                            @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
+                            <td>  
+                                @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}
+                                {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}
+                                @endforeach
+                            </td>                                                           
+                            @endif        
                             @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
-                            @else
-                                <td class="text-danger">Sin asignado</td>
+                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}{{ $loop->last ? '': ' -' }}  </td>
+                  
                             @endif
                             <td class="text-danger">Sin asignado</td>
-
                         </tr>
                     @endforeach
                 </tbody>

@@ -59,13 +59,16 @@
                             <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
                             @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-                            @endif
-                            @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
+                            @endif     
+                            @if ($workAssignment->users != null)
+                                <td>  @foreach ( $workAssignment->users as $user )
+                                    {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}  
+                                    @endforeach</td>
                             @else
-                                <td class="text-danger">Sin asignado</td>
+                                <td class="text-danger">
+                                    Sin asignado
+                                </td>
                             @endif
-
                         </tr>
                     @endforeach
                 </tbody>

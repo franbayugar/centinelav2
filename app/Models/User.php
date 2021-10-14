@@ -18,13 +18,14 @@ class User extends Authenticatable
         'name', 'lastname', 'email', 'phone', 'password', 'type', 'area_id'
     ];
 
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'pivot'
     ];
 
     /**
@@ -79,6 +80,7 @@ class User extends Authenticatable
      */
     public function workAssignments()
     {
-        return $this->belongsTo('App\Models\WorkAssignment');
+        return $this->belongsToMany('App\Models\WorkAssignment', 'users_work_assignments')->withPivot('user_id', 'work_assignment_id');;
+
     }
 }

@@ -56,9 +56,13 @@
                             <td class="{!! $workAssignment->workingState->color !!} bg-black">{!! $workAssignment->workingState->name !!}</td>
                             @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-                            @endif
-                            @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
+                            @endif               
+                            @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
+                            <td>  
+                                @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}
+                                {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}
+                                @endforeach
+                            </td>
                                 <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">
                                     person_add_alt</span></b></button></td>
                             @else
