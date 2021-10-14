@@ -33,31 +33,31 @@
 
         {{-- Boton nuevo viático --}}
             
-            <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+            <table id="example" class="table table-bordered nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Iniciada</th>
                         <th>Estado</th>
                         <th>Asignada</th>
-                        <th>Acción</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
-                    @if (
-                        $workAssignment->workingState->id==4
-                    )
-                        <tr class="bg-red">    
-                    @else
+                   
+                
                         <tr>
-                    @endif
+            
                             
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
 
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
-
+                            @if (
+                                $workAssignment->workingState->id==4
+                            )
+                            <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
+                            @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
 
                             @if ($workAssignment->users != null)
@@ -69,7 +69,6 @@
                                     Sin asignado
                                 </td>
                             @endif
-                            <td class="text-danger">Sin asignado</td>
 
                         </tr>
                     @endforeach

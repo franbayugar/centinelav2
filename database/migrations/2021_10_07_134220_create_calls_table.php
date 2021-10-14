@@ -15,11 +15,14 @@ class CreateCallsTable extends Migration
     {
         Schema::create('calls', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('emitter_name', 100)->nullable();
+            $table->string('emitter_name', 100);
             $table->text('call_description');
-            $table->string('emitter_area', 100)->nullable();
+            $table->unsignedInteger('area_id');
             $table->datetime('date')->nullable();
-            $table->boolean('notified')->nullable();
+            $table
+                ->boolean('notified')
+                ->nullable()
+                ->default(0);
             $table->timestamps();
         });
     }

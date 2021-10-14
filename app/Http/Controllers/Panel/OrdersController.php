@@ -257,7 +257,7 @@ class OrdersController extends Controller
     */
     public function slackNotification($msj) {
         
-        $settings = [
+       /* $settings = [
             'username'   => \Auth::user()->name .' '. \Auth::user()->lastname, //Nombre de usuario que envía el mensaje
             'link_names' => true    //Activar que el nombre de usuario sea un link
         ];
@@ -270,7 +270,7 @@ class OrdersController extends Controller
             'author_name' => \Auth::user()->name .' '. \Auth::user()->lastname,
             'color' => 'good',
             'mrkdwn_in' => ['text']
-        ])->send('Nueva notificación de Centinela');
+        ])->send('Nueva notificación de Centinela');*/
 
     }
 

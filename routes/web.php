@@ -99,11 +99,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         // Rutas para modulo de workassignments
         Route::resource('workassignments', 'Panel\WorkAssignmentsController');
 
-        //Rutas para llamados
-        Route::get('/calls/index', [
-            'uses' => 'Panel\callsController@index',
-            'as' => 'calls.index',
+        //cambiar a resuelto en llamados
+        Route::get('calls/updateNotified/{id}', [
+            'uses' => 'Panel\CallsController@updateNotified',
+            'as' => 'calls.updateNotified',
         ]);
+
+        //Rutas para llamados
+        Route::resource('calls', 'Panel\CallsController');
 
         // Rutas para modulo de products
         Route::resource('products', 'Panel\ProductsController');
@@ -118,6 +121,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
         Route::resource('inputproducts', 'Panel\InputProductsController');
 
         // Ruta para modulo outputproducts
+        Route::get('outputproducts/totaloutputs', [
+            'uses' => 'Panel\OutputProductsController@totaloutputs',
+            'as' => 'outputproducts.totaloutputs',
+        ]);
+
         Route::resource('outputproducts', 'Panel\OutputProductsController');
 
         Route::group(['prefix' => 'userorders'], function () {

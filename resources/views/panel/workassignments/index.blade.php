@@ -44,18 +44,17 @@
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
-                        @if (
-                            $workAssignment->workingState->id==4
-                        )
-                            <tr class="bg-red">    
-                        @else
                             <tr>
-                        @endif
       
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
 
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
 
+                            @if (
+                                $workAssignment->workingState->id==4
+                            )
+                            <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
+                            @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
 
                             @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}

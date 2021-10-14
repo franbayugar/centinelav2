@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Panel;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -321,12 +322,43 @@ class OutputProductsController extends Controller
         return redirect()->route('reservedorders');
     }
 
+
+/*
+* Metodo index del total egresos
+*/
+    public function totaloutputs () {
+         // Busco todos los outputproduct agrupados en productos con sus cantidades correspondientes
+         $resmas = DB::table('OutputProducts')
+                                        ->join('products','Outputproducts.product_id','=','products.id')
+                                        ->join('users', 'users.id','=','outputproducts.user_id' )
+                                        ->join('areas','users.area_id','=','areas.id')
+                                        ->select('products.name as productname',DB::raw('SUM(quantity) as cantidad'),'areas.name as areaname')
+                                        -> where([['statusoutput_id', 2]/*,['products.name','like','Resma%']*/])
+                                        ->groupBy('products.name','areas.name')
+                                        ->orderBy('areas.name', 'DESC')
+                                        ->get();
+    
+        var_dump($resmas);
+        die();
+        //Tomar las resmas de cada area segun un filtro mensual
+        /*$outputproducts = DB::table('OutputProducts')->join('products','Outputproducts.product_id','=','products.id')
+                                                    ->join('users','users.id', '=' ,'outputproducts.user_id')
+                                                     ->select('users.area_id','products.name',DB::raw('SUM(quantity) as cantidad'))
+                                                     -> where([['Outputproducts.statusoutput_id', 2],['products.name','Resma%']])
+                                                     ->groupBy('users.area_id')
+                                                     ->get();
+        $resmas= Product::*/
+
+         // Retorno a la vista
+         return view('panel.outputproducts.totaloutputs', compact('resmas'));
+    }
+
     /*
     *   Metodo que realiza el envió de la notificación de Slack
     */
     public function slackNotification($msj) {
         
-        $settings = [
+       /* $settings = [
             'username'   => \Auth::user()->name .' '. \Auth::user()->lastname, //Nombre de usuario que envía el mensaje
             'link_names' => true    //Activar que el nombre de usuario sea un link
         ];
@@ -339,7 +371,7 @@ class OutputProductsController extends Controller
             'author_name' => \Auth::user()->name .' '. \Auth::user()->lastname,
             'color' => 'good',
             'mrkdwn_in' => ['text']
-        ])->send('Nueva notificación de Centinela');
+        ])->send('Nueva notificación de Centinela');*/
 
     }
 }

@@ -68,6 +68,7 @@
                 <ul class="treeview-menu">
                     <li class="{{ Request::is('admin/outputproducts/create') ? 'active' : '' }}"><a href="{{ route('outputproducts.create') }}"><i class="fa fa-angle-double-right"></i> Nuevo egreso</a></li>
                     <li class="{{ Request::is('admin/outputproducts') ? 'active' : '' }}"><a href="{{ route('outputproducts.index') }}"><i class="fa fa-angle-double-right"></i> Listado de Egresos</a></li>
+                    <li class="{{ Request::is('admin/outputproducts') ? 'active' : '' }}"><a href="{{ route('outputproducts.totaloutputs') }}"><i class="fa fa-angle-double-right"></i> Total Egresos</a></li>
                 </ul>
             </li>
             {{-- Pedidos --}}
@@ -140,7 +141,7 @@
                    
                 </ul>
             </li>
-            //Llamados
+            {{--Llamados--}}
             <li class="treeview {{ Request::segment(2) === 'workassignments' ? 'active' : null }}">
                 <a href="#">
                     <i class="fa fa-tasks"></i> <span>Llamados</span>
@@ -148,7 +149,8 @@
                 </a>
                 <ul class="treeview-menu">
               {{-- /.     <li class="{{ Request::is('admin/calls/create') ? 'active' : '' }}"><a href="{!! route('calls.create') !!}"><i class="fa fa-angle-double-right"></i> Nueva pedido</a></li> --}}
-                    <li class="{{ Request::is('admin/calls') ? 'active' : '' }}"><a href="{{ route('calls.index') }}"><i class="fa fa-angle-double-right"></i> Listado de pedidos</a></li>
+                    <li class="{{ Request::is('admin/calls') ? 'active' : '' }}"><a href="{{ route('calls.index') }}"><i class="fa fa-angle-double-right"></i> Listado de llamados</a></li>
+                    <li class="{{ Request::is('admin/calls/create') ? 'active' : '' }}"><a href="{{ route('calls.create') }}"><i class="fa fa-angle-double-right"></i> Nuevo llamado</a></li>
                 </ul>
             </li>
 
