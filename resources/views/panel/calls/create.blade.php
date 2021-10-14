@@ -20,7 +20,7 @@
 <section class="content-header">
     <h1>
         <i class="fa fa-tasks"></i> Llamados
-        <small>Nueva Llamado</small>
+        <small>Nuevo Llamado</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -57,7 +57,7 @@
              {{-- Area proveniente desplegable--}}
              <div class="col-md-6">
                 <div class="form-group">
-                    {!! Form::label('area_id', 'Área') !!}
+                    {!! Form::label('area_id', 'Área *') !!}
                     {!! Form::select('area_id', $areas, null, ['class' => 'form-control select-simple', 'placeholder' => '- Seleccionar área -','required']) !!}  
                 </div>
             </div>

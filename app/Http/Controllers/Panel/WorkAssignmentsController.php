@@ -151,7 +151,7 @@ class WorkAssignmentsController extends Controller
      */
     public function destroy($id)
     {
-        $idauth = \Auth::user()->id;
+        //$idauth = \Auth::user()->id;
         $workassignment = WorkAssignment::findOrFail($id);
         //if($workassignment->user_id == $idauth){
         $workassignment->delete();

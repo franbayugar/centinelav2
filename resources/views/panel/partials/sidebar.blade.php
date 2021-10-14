@@ -142,7 +142,7 @@
                 </ul>
             </li>
             {{--Llamados--}}
-            <li class="treeview {{ Request::segment(2) === 'workassignments' ? 'active' : null }}">
+            <li class="treeview {{ Request::segment(2) === 'calls' ? 'active' : null }}">
                 <a href="#">
                     <i class="fa fa-tasks"></i> <span>Llamados</span>
                     <i class="fa fa-angle-left pull-right"></i>

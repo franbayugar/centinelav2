@@ -36,7 +36,7 @@ class CallStoreRequest extends FormRequest
     {
         return [
             'emitter_name.required' => 'El campo Nombre es obligatorio.',
-            'area_id.required' => 'Debe seleccionar un àrea',
+            'area_id.required' => 'Debe seleccionar un Área',
             'call_description.required' =>
                 'El campo descripción es obligatorio.',
         ];
