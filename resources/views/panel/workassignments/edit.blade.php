@@ -182,15 +182,20 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('user_id', 'Asignada') !!}
-                                <select class="form-control select-simple" multiple id="user_id" name="user_id" >
+
+                                <select class= "form-control select-simple" multiple="multiple" id="user_id" name="user_id[]">
                                     {{--Solucion provisoria el "sin asignar" deberia setearse automaticamente cuando se borra del input--}}
-                                    @foreach ( $users_computos as $user )
-                                        @if ( $user->id == $workassignment->user_id)
-                                            <option value="{{ $user->id }}" selected>{{ $user->lastname }}, {{ $user->name }}</option>
+                              {{!!$i=0;!!}}
+                                    @foreach ($users_computos as $user)
+                                        @if (!empty($usersID) && $i<count($usersID) && $user->id == $usersID[$i])
+                                        <option value="{{ $user->id }}" selected>{{ $user->lastname }}, {{ $user->name }}</option>
+                                        {{!!$i++;!!}}
                                         @else
-                                            <option value="{{ $user->id }}">{{ $user->lastname }}, {{ $user->name }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->lastname }}, {{ $user->name }}</option>
                                         @endif
                                     @endforeach
+
+
                                 </select>
                             </div>
                         </div>

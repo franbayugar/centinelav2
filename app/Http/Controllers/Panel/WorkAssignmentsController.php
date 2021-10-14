@@ -61,14 +61,12 @@ class WorkAssignmentsController extends Controller
     public function store(WorkAssignmentRequest $request)
     {
         $workAssignment = new WorkAssignment($request->all());
-        
-        var_dump($request['user_id']);
         $workAssignment->save();
 
         foreach($request['user_id'] as $id_user){
-         $workAssignment->attach($id_user);   
+            ($workAssignment->users()->attach($id_user));   
         }
-       
+    
         flash('La tarea se ha registrado con exito!')->success();
         return redirect()->route('workassignments.index');
     }
@@ -97,9 +95,13 @@ class WorkAssignmentsController extends Controller
         $working_states = WorkingState::orderBy('id', 'ASC')
             ->pluck('name', 'id')
             ->all();
+        $usersID = array();
+        foreach($workassignment->users as $user){
+            array_push($usersID, $user->id);
+        }
         return view(
             'panel.workassignments.edit',
-            compact('users_computos', 'working_states', 'workassignment')
+            compact('users_computos', 'working_states', 'workassignment', 'usersID')
         );
     }
 
@@ -115,9 +117,10 @@ class WorkAssignmentsController extends Controller
         $workassignment = WorkAssignment::find($id);
  
         $workassignment->fill($request->all());
-       
-        $workassignment->user_id = $request->user_id;
-
+        if(empty($request['user_id'])){
+        $workassignment->user_id = null;
+        }
+        
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if ($workassignment->finish_date < $workassignment->start_date) {
             flash(
@@ -144,6 +147,10 @@ class WorkAssignmentsController extends Controller
         }
 
         $workassignment->save();
+        $res = $request['user_id'];
+
+        $workassignment->users()->sync($res);   
+
         flash('La tarea ha sido modificada de forma exitosa!')->success();
         return redirect()->route('workassignments.index');
     }
