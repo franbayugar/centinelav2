@@ -32,7 +32,7 @@
         <div class="box-body">
         {{-- Boton nuevo viático --}}
         <a href="{!! route('calls.create') !!}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Nueva tarea"><i class="fa fa-tasks"></i> Nuevo llamado</a><br><br>
-        <table id="example" class="table  table-bordered nowrap" style="width:100%">
+        <table id="example" class="table table-striped  table-bordered nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nombre</th>

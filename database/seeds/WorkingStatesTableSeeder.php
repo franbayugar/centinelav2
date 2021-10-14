@@ -12,24 +12,31 @@ class WorkingStatesTableSeeder extends Seeder
     public function run()
     {
         DB::table('working_states')->insert([
-            'name'  => 'Pendiente',
+            'name' => 'Pendiente',
             'color' => 'text-warning',
-            'created_at'    => date("Y-m-d H:i:s"),
-            'updated_at'    => date("Y-m-d H:i:s")
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('working_states')->insert([
-            'name'  => 'En proceso',
+            'name' => 'En proceso',
             'color' => 'text-info',
-            'created_at'    => date("Y-m-d H:i:s"),
-            'updated_at'    => date("Y-m-d H:i:s")
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('working_states')->insert([
-            'name'  => 'Hecho',
+            'name' => 'Hecho',
             'color' => 'text-success',
-            'created_at'    => date("Y-m-d H:i:s"),
-            'updated_at'    => date("Y-m-d H:i:s")
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('working_states')->insert([
+            'name' => 'Urgente',
+            'color' => 'text-dark',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 }

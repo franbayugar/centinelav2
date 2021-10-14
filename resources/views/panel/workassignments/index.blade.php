@@ -44,20 +44,19 @@
                 </thead>
                 <tbody>
                     @foreach ( $workAssignments as $workAssignment )
-                        @if (
-                            $workAssignment->workingState->id==4
-                        )
-                            <tr class="bg-red">    
-                        @else
                             <tr>
-                        @endif
       
                             <td><a href="{!! route('workassignments.edit', $workAssignment->id) !!}" data-toggle="tooltip" title="Detalle/Modificar">{!! $workAssignment->name !!}</a></td>
 
                             <td>{!! date('Y-m-d', strtotime($workAssignment->start_date)) !!}</td>
 
+                            @if (
+                                $workAssignment->workingState->id==4
+                            )
+                            <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
+                            @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-
+                            @endif
                             @if ($workAssignment->user != null)
                                 <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}</td>
                                 <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">
