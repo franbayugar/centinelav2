@@ -54,12 +54,9 @@
                 <tbody>
                     @foreach ( $resmas as $outputproduct )
                         <tr>
-                            <td>{!! $outputproduct->areaname !!}</td> 
-                            @if($outputproduct->cantidad != 0)
+                            <td>{!! $outputproduct->areaname !!}</td>                     
                             <td>{!! $outputproduct->cantidad !!}</td>
-                            @else
-                            <td>--</td>
-                            @endif
+                            <td>--</td>        
                            
                         </tr>
                     @endforeach
