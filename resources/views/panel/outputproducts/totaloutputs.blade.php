@@ -44,21 +44,23 @@
                 <thead>
                     <tr>
         
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                        <th>Mas info</th>
-                    
+                        <th>Area</th>
+                        @foreach ( $resmas as $outputproduct )
+                        <th> {!! $outputproduct->productname !!}</th>
+                        @endforeach
+                        <th>Promedio</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $outputproducts as $outputproduct )
+                    @foreach ( $resmas as $outputproduct )
                         <tr>
-                            <td>{!! $outputproduct->name !!}</td>
-
+                            <td>{!! $outputproduct->areaname !!}</td> 
+                            @if($outputproduct->cantidad != 0)
                             <td>{!! $outputproduct->cantidad !!}</td>
-                            <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalinformacion">
-                                Mas Información
-                              </button></td>
+                            @else
+                            <td>--</td>
+                            @endif
+                           
                         </tr>
                     @endforeach
                 </tbody>

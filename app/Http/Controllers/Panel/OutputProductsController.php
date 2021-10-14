@@ -328,19 +328,29 @@ class OutputProductsController extends Controller
 */
     public function totaloutputs () {
          // Busco todos los outputproduct agrupados en productos con sus cantidades correspondientes
-         $outputproducts = DB::table('OutputProducts')
+         $resmas = DB::table('OutputProducts')
                                         ->join('products','Outputproducts.product_id','=','products.id')
-                                        ->select('products.name',DB::raw('SUM(quantity) as cantidad'))
-                                        -> where('statusoutput_id', 2)
-                                        ->groupBy('product_id')
-                                        ->orderBy('product_id', 'DESC')
+                                        ->join('users', 'users.id','=','outputproducts.user_id' )
+                                        ->join('areas','users.area_id','=','areas.id')
+                                        ->select('products.name as productname',DB::raw('SUM(quantity) as cantidad'),'areas.name as areaname')
+                                        -> where([['statusoutput_id', 2]/*,['products.name','like','Resma%']*/])
+                                        ->groupBy('products.name','areas.name')
+                                        ->orderBy('areas.name', 'DESC')
                                         ->get();
-        //CREAR FILTRO POR FECHAS
-
-        //CONSULTA DE LA CANTIDAD DE CADA PRODUCTO SEGUN EL AREA
+    
+        var_dump($resmas);
+        die();
+        //Tomar las resmas de cada area segun un filtro mensual
+        /*$outputproducts = DB::table('OutputProducts')->join('products','Outputproducts.product_id','=','products.id')
+                                                    ->join('users','users.id', '=' ,'outputproducts.user_id')
+                                                     ->select('users.area_id','products.name',DB::raw('SUM(quantity) as cantidad'))
+                                                     -> where([['Outputproducts.statusoutput_id', 2],['products.name','Resma%']])
+                                                     ->groupBy('users.area_id')
+                                                     ->get();
+        $resmas= Product::*/
 
          // Retorno a la vista
-         return view('panel.outputproducts.totaloutputs', compact('outputproducts'));
+         return view('panel.outputproducts.totaloutputs', compact('resmas'));
     }
 
     /*
