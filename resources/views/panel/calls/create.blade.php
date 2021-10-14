@@ -25,7 +25,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
         <li class="active"><a href="{{ route('calls.index') }}">Llamados</a></li>
-        <li class="active">Nuevo pedido</li>
+        <li class="active">Nuevo llamado</li>
     </ol>
 </section>
 @endsection
