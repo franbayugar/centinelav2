@@ -56,7 +56,7 @@
                             <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
                             @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-
+                            @endif               
                             @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
                             <td>  
                                 @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}

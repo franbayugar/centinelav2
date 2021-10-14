@@ -59,7 +59,7 @@
                             <td class="{!! $workAssignment->workingState->color !!} bg-red">{!! $workAssignment->workingState->name !!}</td>
                             @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
-
+                            @endif     
                             @if ($workAssignment->users != null)
                                 <td>  @foreach ( $workAssignment->users as $user )
                                     - {!!$user->name!!}, {!!$user->lastname!!}  
