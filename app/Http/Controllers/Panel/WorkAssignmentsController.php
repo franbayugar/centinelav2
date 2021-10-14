@@ -117,16 +117,10 @@ class WorkAssignmentsController extends Controller
         $workassignment = WorkAssignment::find($id);
  
         $workassignment->fill($request->all());
-<<<<<<< HEAD
         if(empty($request['user_id'])){
         $workassignment->user_id = null;
         }
         
-=======
-
-        $workassignment->user_id = $request->user_id;
-
->>>>>>> main
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if (
             $workassignment->working_state_id == 3 &&
