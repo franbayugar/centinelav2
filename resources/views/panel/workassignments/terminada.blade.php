@@ -40,8 +40,6 @@
                         <th>Iniciada</th>
                         <th>Estado</th>
                         <th>Asignada</th>
-                        <th>Acción</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -54,17 +52,15 @@
 
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
                             @if (!$workAssignment->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
-                            <td>  
-                                @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}
-                                {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}
-                                @endforeach
-                            </td>                                                           
+                                <td>  
+                                    @foreach ( $workAssignment->users as $user ) {{-- recorremos los usuarios --}}
+                                        {!!$user->name!!} {!!$user->lastname!!}{{ $loop->last ? '': ' -' }}
+                                    @endforeach
+                                </td>  
+                            @else               
+                                <td></td>                                          
                             @endif        
-                            @if ($workAssignment->user != null)
-                                <td>{!! $workAssignment->user->name !!} {!! $workAssignment->user->lastname !!}{{ $loop->last ? '': ' -' }}  </td>
-                  
-                            @endif
-                            <td class="text-danger">Sin asignado</td>
+                          
                         </tr>
                     @endforeach
                 </tbody>

@@ -17,8 +17,8 @@ class UsersWorkAssignmentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('work_assignment_id')->unsigned();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('work_assignment_id')->references('id')->on('work_assignments');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('work_assignment_id')->references('id')->on('work_assignments') ->onDelete('CASCADE')->onUpdate('CASCADE');
             //
         });
     }
