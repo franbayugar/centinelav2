@@ -14,11 +14,11 @@ class UsersWorkAssignmentsTable extends Migration
     public function up()
     {
         Schema::create('users_work_assignments', function (Blueprint $table) {
-            $table->integer('id_user')->unsigned();
-            $table->integer('id_task')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->integer('work_assignment_id')->unsigned();
 
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_task')->references('id')->on('work_assignments');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('work_assignment_id')->references('id')->on('work_assignments');
             //
         });
     }
