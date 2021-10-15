@@ -62,15 +62,14 @@ class WorkAssignmentsController extends Controller
     {
         $workAssignment = new WorkAssignment($request->all());
         $workAssignment->save();
-        if(!empty($request['user_id'])){
-        foreach($request['user_id'] as $id_user){
-            ($workAssignment->users()->attach($id_user));   
+        if (!empty($request['user_id'])) {
+            foreach ($request['user_id'] as $id_user) {
+                $workAssignment->users()->attach($id_user);
+            }
+        } else {
+            $workAssignment->users()->attach(null);
         }
-    }else{
-        
-        $workAssignment->users()->attach(null);
-    }
-    
+
         flash('La tarea se ha registrado con exito!')->success();
         return redirect()->route('workassignments.index');
     }
@@ -99,13 +98,18 @@ class WorkAssignmentsController extends Controller
         $working_states = WorkingState::orderBy('id', 'ASC')
             ->pluck('name', 'id')
             ->all();
-        $usersID = array();
-        foreach($workassignment->users as $user){
+        $usersID = [];
+        foreach ($workassignment->users as $user) {
             array_push($usersID, $user->id);
         }
         return view(
             'panel.workassignments.edit',
-            compact('users_computos', 'working_states', 'workassignment', 'usersID')
+            compact(
+                'users_computos',
+                'working_states',
+                'workassignment',
+                'usersID'
+            )
         );
     }
 
@@ -119,10 +123,19 @@ class WorkAssignmentsController extends Controller
     public function update(WorkAssignmentRequest $request, $id)
     {
         $workassignment = WorkAssignment::find($id);
- 
+
         $workassignment->fill($request->all());
-       
-     
+
+        //Verifica que la tarea no la den por terminada sin agregarle fecha de finalizacion.
+        if (
+            $workassignment->working_state_id == 3 &&
+            $workassignment->finish_date == null
+        ) {
+            flash(
+                'Has olvidado poner la fecha de finalización de la tarea.'
+            )->error();
+            return back()->withInput();
+        }
         //Verifica que no se ponga una fecha de finalizacion anterior a la fecha de creacion.
         if (
             $workassignment->working_state_id == 3 &&
@@ -131,28 +144,22 @@ class WorkAssignmentsController extends Controller
             flash(
                 'La fecha de finalizacion no debe ser menor a la de creacion.'
             )->error();
-            return back();
-            //Verifica que la tarea no la den por terminada sin agregarle fecha de finalizacion.
-        } elseif (
-            $workassignment->working_state_id == 3 &&
-            $workassignment->finish_date == null
-        ) {
-            flash(
-                'Has olvidado poner la fecha de finalización de la tarea.'
-            )->error();
-            return back();
+            return back()->withInput();
             //Verifica que no se den por terminadas tareas que no fueron asignadas.
-        } 
-        else if (empty($request->user_id) &&  $workassignment->working_state_id == 3) {
+        }
+        if (
+            empty($request->user_id) &&
+            $workassignment->working_state_id == 3
+        ) {
             flash(
                 'No puede dar por terminada una tarea que no esta asignada'
             )->error();
-            return back();
+            return back()->withInput();
         }
         $workassignment->save();
         $res = $request['user_id'];
 
-        $workassignment->users()->sync($res);   
+        $workassignment->users()->sync($res);
 
         flash('La tarea ha sido modificada de forma exitosa!')->success();
         return redirect()->route('workassignments.index');
@@ -179,12 +186,10 @@ class WorkAssignmentsController extends Controller
 
     public function bentrada()
     {
-
         $user = User::find(\Auth::user()->id);
-       
-       
+
         $id = \Auth::user()->id;
-      /*
+        /*
         $test = WorkAssignment::where('user_id', $id)
             ->orderBy('working_state_id', 'ASC')
             ->get();
@@ -205,7 +210,6 @@ class WorkAssignmentsController extends Controller
             ->get();
         // Retorno a la vista
 
-       
         return view(
             'panel.workassignments.terminada',
             compact('workAssignments')
@@ -216,13 +220,12 @@ class WorkAssignmentsController extends Controller
     {
         /*parche para sin asignar - rapido MEJORAR - */
         $workAssignments = WorkAssignment::all();
-        $tasks = array();
-        foreach($workAssignments as $workAssignment){
-            if(count($workAssignment->users)==0){
+        $tasks = [];
+        foreach ($workAssignments as $workAssignment) {
+            if (count($workAssignment->users) == 0) {
                 array_push($tasks, $workAssignment);
             }
         }
-
 
         /*$tasks = WorkAssignment::with('users')->whereHas('users', function($q) {
                             $q->where('user_id', null);
@@ -231,8 +234,7 @@ class WorkAssignmentsController extends Controller
                             ->get();
         */
 
-
-         /*
+        /*
         $test = $workAssignments->users->where('user_id', null);
         var_dump($test);
         die();
@@ -257,8 +259,7 @@ class WorkAssignmentsController extends Controller
         //controlo que no haya usuarios asignados a la tarea
         $authid = \Auth::user()->id;
 
-
-        $task->users()->sync($authid);   
+        $task->users()->sync($authid);
 
         return redirect()->back();
     }
