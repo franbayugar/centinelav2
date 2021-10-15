@@ -332,9 +332,14 @@ class OutputProductsController extends Controller
                                         ->join('products','Outputproducts.product_id','=','products.id')
                                         ->join('users', 'users.id','=','outputproducts.user_id' )
                                         ->join('areas','users.area_id','=','areas.id')
-                                        ->select('products.name as productname',DB::raw('SUM(quantity) as cantidad'),'areas.name as areaname')
-                                        -> where([['statusoutput_id', 2]/*,['products.name','like','Resma%']*/])
-                                        ->groupBy('products.name','areas.name')
+                                    
+                                        ->select(DB::raw('YEAR(outputproducts.output_date ) as anio'),
+                                                DB::raw('MONTH(outputproducts.output_date) as mes'),
+                                                'products.name as productname',
+                                                DB::raw('SUM(quantity) as cantidad'),
+                                                'areas.name as areaname')
+                                        -> where([['statusoutput_id', 2],['products.name','like','Resma%']])
+                                        ->groupBy('anio','mes','areas.name','products.name')
                                         ->orderBy('areas.name', 'DESC')
                                         ->get();
     
