@@ -34,7 +34,7 @@ class WorkingStatesTableSeeder extends Seeder
 
         DB::table('working_states')->insert([
             'name' => 'Urgente',
-            'color' => 'text-dark',
+            'color' => 'text-white',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);

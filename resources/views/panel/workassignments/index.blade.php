@@ -53,7 +53,7 @@
                             @if (
                                 $workAssignment->workingState->id==4
                             )
-                            <td class="{!! $workAssignment->workingState->color !!} bg-black">{!! $workAssignment->workingState->name !!}</td>
+                            <td class="{!! $workAssignment->workingState->color !!} bg-blue">{!! $workAssignment->workingState->name !!}</td>
                             @else
                             <td class="{!! $workAssignment->workingState->color !!}">{!! $workAssignment->workingState->name !!}</td>
                             @endif               
