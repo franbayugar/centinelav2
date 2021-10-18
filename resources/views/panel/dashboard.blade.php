@@ -232,11 +232,12 @@
             </div>
             <div class="box-body">
                 <p>
-                    <table  class="table table-striped table-bordered nowrap" style="width:100%">
+                    <table id="example22" class="table table-striped table-bordered nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripciòn</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -244,8 +245,21 @@
                                 <tr>
                                     
                                     <td><a href="{{ route('workassignments.edit', $task->id) }}" data-toggle="tooltip" title="Ver">{!! $task->name !!}</a></td>
-        
                                     <td>{!! $task->description !!}</td>
+
+
+
+                                    @if (!$task->users->isEmpty()) {{-- preguntamos que el array no este vacio --}}
+                                  
+                                        <td class="text-danger"><button class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#myModal" disabled><b><span class="material-icons">
+                                            person_add_alt</span></b></button></td>
+                                    @else
+                                       
+                                        <td class="text-danger"><a  href="{!! route('workassignments.autoassing', $task->id) !!}" class="btn btn-success btn-sm btn-block"><b><span class="material-icons">
+                                            person_add_alt</span></b></a></td>                                  
+                                    @endif            
+
+
         
                                 </tr>
                             @endforeach
