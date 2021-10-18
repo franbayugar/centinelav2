@@ -201,7 +201,7 @@
             </div>
             <div class="box-body">
                 <p>
-                    <table id="example" class="example table table-striped table-bordered nowrap" style="width:100%">
+                    <table class="table table-striped table-bordered nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -232,7 +232,7 @@
             </div>
             <div class="box-body">
                 <p>
-                    <table id="example2" class=" table table-striped table-bordered nowrap" style="width:100%">
+                    <table  class="table table-striped table-bordered nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>

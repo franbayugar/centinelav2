@@ -185,11 +185,12 @@
 
                                 <select class= "form-control select-simple" multiple="multiple" id="user_id" name="user_id[]">
                                     {{--Solucion provisoria el "sin asignar" deberia setearse automaticamente cuando se borra del input--}}
-                              {{!!$i=0;!!}}
+                              {{!!$i=0; $repetido=false;!!}}
                                     @foreach ($users_computos as $user)
-                                        @if (!empty($usersID) && $i<count($usersID) && $user->id == $usersID[$i])
-                                        <option value="{{ $user->id }}" selected>{{ $user->lastname }}, {{ $user->name }}</option>
+                                        @if (!empty($usersID) && $i<=count($usersID) && $user->id == $usersID[$i])
                                         {{!!$i++;!!}}
+                                        <option value="{{ $user->id }}" selected>{{ $user->lastname }}, {{ $user->name }}</option>
+                                        
                                         @else
                                         <option value="{{ $user->id }}">{{ $user->lastname }}, {{ $user->name }}</option>
                                         @endif

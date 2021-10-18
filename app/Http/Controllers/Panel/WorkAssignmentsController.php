@@ -102,6 +102,8 @@ class WorkAssignmentsController extends Controller
         foreach ($workassignment->users as $user) {
             array_push($usersID, $user->id);
         }
+     
+      
         return view(
             'panel.workassignments.edit',
             compact(
