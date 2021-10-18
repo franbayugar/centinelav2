@@ -51,7 +51,9 @@ class DashboardController extends Controller
             $users = User::orderBy('id', 'ASC')->count();
             // Productos bajos de stock
             $low_stock = Product::where('stock', '<=', '5')->get();
-
+            //Tareas pendientes sin asignar
+            $tasks = WorkAssignment::where('Working_state_id', 1)->where ('user_id', NULL)->get();
+            //contador tareas sin asignar
             $pendingTasks = WorkAssignment::where('Working_state_id', 1)->where ('user_id', NULL)->orderBy('id', 'ASC')->count();
             //contador bandeja de entrada
             $id=\Auth::user()->id;
@@ -70,7 +72,7 @@ class DashboardController extends Controller
             Fin Consulta para saber cuantos productos se van gastando en corriente año */
 
             // Retorno vista correspondiente
-            return view('panel.dashboard', compact('mails', 'desktops', 'laptops', 'printers', 'outputproducts', 'users', 'low_stock', 'pendingTasks', 'inbox'));
+            return view('panel.dashboard', compact('mails', 'desktops', 'laptops', 'printers', 'outputproducts', 'users', 'low_stock', 'pendingTasks', 'inbox','tasks'));
         }
         else
         {
@@ -78,6 +80,7 @@ class DashboardController extends Controller
             $userOrders = OutputProduct::where('user_id', \Auth::user()->id)->orderBy('id', 'ASC')->count();
             // Listado de usuarios para agenda
             $users = User::orderBy('name', 'ASC')->get();
+
 
             // Retorno vista correspondiente
             return view('panel.dashboard', compact('userOrders', 'users'));

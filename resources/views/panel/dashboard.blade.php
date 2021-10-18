@@ -201,7 +201,7 @@
             </div>
             <div class="box-body">
                 <p>
-                    <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+                    <table id="example" class="example table table-striped table-bordered nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -211,26 +211,53 @@
                         <tbody>
                             @foreach ( $low_stock as $product )
                                 <tr>
-                                    
                                     <td><a href="{{ route('products.show', $product->id) }}" data-toggle="tooltip" title="Ver">{!! $product->name !!}</a></td>
-        
                                     <td>{!! $product->stock !!}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </p>
+            </div>{{-- /.box-body --}}
+        </div>{{-- /.box --}}
+    </div>{{-- /.col --}}
+    <div class="col-md-6">
+        {{-- Warning box --}}
+        <div class="box box-solid box-warning">
+            <div class="box-header">
+                <h3 class="box-title"><i class="fa fa-shopping-cart"></i> Tareas por realizar</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-warning btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <p>
+                    <table id="example2" class=" table table-striped table-bordered nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripciòn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ( $tasks as $task )
+                                <tr>
+                                    
+                                    <td><a href="{{ route('workassignments.edit', $task->id) }}" data-toggle="tooltip" title="Ver">{!! $task->name !!}</a></td>
+        
+                                    <td>{!! $task->description !!}</td>
         
                                 </tr>
                             @endforeach
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Stock</th>
-                            </tr>
-                        </tfoot>
+         
                     </table>
                 </p>
             </div>{{-- /.box-body --}}
         </div>{{-- /.box --}}
     </div>{{-- /.col --}}
 </div>
+
 
 @else
 {{-- Small boxes (Stat box) --}}
@@ -336,7 +363,6 @@
 @endif
 
 @endsection
-
 @section('script')
 
     {{-- Scripts necesarios para datatables --}}
